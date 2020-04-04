@@ -14,6 +14,10 @@ public class LearnMemberStatic : MonoBehaviour
     private int speed = 99; //私人private : 僅限此類別存取，隱藏在屬性面板
 
     public Camera cam; //定義一個類行為 Camera 的物件，名稱為 cam
+
+    //GameObject儲存階層面板或專案內的預置物
+    public GameObject cube;
+    public GameObject sphere;
     private void Start()
     {
         
@@ -32,6 +36,16 @@ public class LearnMemberStatic : MonoBehaviour
 
         print("攝影機數量" + Camera.allCamerasCount); //靜態(類別.成員)
         print(cam.depth); //非靜態(物件.成員)
+
+        print(cube.layer ); //取得立方體的圖層(非靜態)
+        print(sphere.layer); //取得球體的圖層(非靜態)
+
+        cube.layer = 3; //設定立方體的圖層=3(非靜態)
+        sphere.layer = 4; //設定球體體的圖層=4(非靜態)
+
+        cube.SetActive(true); //使用非靜態方法顯示圖層
+        sphere.SetActive(false); //使用非靜態方法隱藏圖層
+
 
     }
     
