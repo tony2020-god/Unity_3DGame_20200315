@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 public class Dragon : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class Dragon : MonoBehaviour
 
     [Header("攻擊力"), Range(1, 5000)]
     public float attack = 35;
+
+    [Header("血量"), Range(1, 1000)]
+    public float hp = 100;
+
+    [Header("血條")]
+    public Image hpBar;
     /// <summary>
     /// 動畫控制器
     /// </summary>
@@ -84,14 +91,54 @@ public class Dragon : MonoBehaviour
         temp.GetComponent<Rigidbody>().AddForce(0, 0, speedFireBall);
     }
 
+    private void EatPropCd() //吃掉加速藥水效果
+    {
+        hp -= 0.5f;
+        hp = Mathf.Clamp(cd, 0.6f, 100);
+    }
+    private void EatPropHP() //吃掉補血藥水效果
+    {
+        StartCoroutine(HpBarEffect());
+    }
+
+    private IEnumerator HpBarEffect()
+    {
+        float hpAdd = hp + 20;
+
+        while (hp < hpAdd)
+        {
+            hp++;
+            hp = Mathf.Clamp(hp, 0, 100);
+            hpBar.fillAmount = hp / 100;
+            yield return null;
+        }
+
+    }
+
     private void Start()
     {
         ani = GetComponent<Animator>(); //取得元件<泛型>()
+        hpBar.fillAmount = hp / 100; //每關血量更新
+
     }
 
     private void Update()
     {
         Move();
         Attack();
+    }
+
+    private void OnTriggerEnter(Collider other) //物件撞到藥水
+    {
+        if (other.tag == "加速藥水")
+        {
+            EatPropCd();
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "回血藥水")
+        {
+            EatPropHP();
+            Destroy(other.gameObject);
+        }
     }
 }
