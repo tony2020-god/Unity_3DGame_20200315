@@ -89,6 +89,8 @@ public class Dragon : MonoBehaviour
         temp.GetComponent<Ball>().damage = attack; //暫存火球.取得元件<球>().傷害值 = 攻擊力
 
         temp.GetComponent<Rigidbody>().AddForce(0, 0, speedFireBall);
+        temp.GetComponent<Ball>().damage = attack;
+        temp.GetComponent<Ball>().type = "玩家";
     }
 
     private void EatPropCd() //吃掉加速藥水效果
@@ -115,6 +117,23 @@ public class Dragon : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 受傷
+    /// </summary>
+    /// <param name="damage">接收收到的傷害值</param>
+    public void Damage(float damage)
+    {
+        hp -= damage;
+        hpBar.fillAmount = hp / 100;
+        if (hp <= 0) Dead();
+    }
+    /// <summary>
+    /// 死亡
+    /// </summary>
+    private void Dead()
+    {
+        ani.SetBool("死亡開關", true);
+    }
     private void Start()
     {
         ani = GetComponent<Animator>(); //取得元件<泛型>()
@@ -124,6 +143,7 @@ public class Dragon : MonoBehaviour
 
     private void Update()
     {
+        if (ani.GetBool("死亡開關")) return;
         Move();
         Attack();
     }
