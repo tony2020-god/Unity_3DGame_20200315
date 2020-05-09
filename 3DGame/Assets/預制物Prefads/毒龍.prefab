@@ -1840,6 +1840,7 @@ GameObject:
   - component: {fileID: 1365579873}
   - component: {fileID: 1365579872}
   - component: {fileID: 1365579871}
+  - component: {fileID: -2633414363354079407}
   m_Layer: 0
   m_Name: "\u6BD2\u9F8D"
   m_TagString: "\u602A\u7269"
@@ -1896,7 +1897,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!135 &1365579872
 SphereCollider:
@@ -1927,6 +1928,19 @@ MonoBehaviour:
   propHP: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
   propCd: {fileID: 1000013846074356, guid: 11e31a2ebb4e6e246bcf8c0ba034a031, type: 3}
   bullet: {fileID: 3478731899785320616, guid: 526d8be65e0339942bd0e87f8d82f1a2, type: 3}
+--- !u!114 &-2633414363354079407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108469236331065849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27a4fc11e3274b478cc98f8e5150fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
 --- !u!1 &6108469236331065851
 GameObject:
   m_ObjectHideFlags: 0

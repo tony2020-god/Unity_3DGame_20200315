@@ -30,7 +30,14 @@ public class Monster : MonoBehaviour
     public void Damage(float damage)
     {
         hp -= damage;
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+        Invoke("ResetColor", 0.2f);
         if (hp <= 0) dead();
+    }
+
+    private void ResetColor()
+    {
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.white;
     }
     /// <summary>
     /// 死亡
@@ -39,6 +46,7 @@ public class Monster : MonoBehaviour
     {
         ani.SetBool("死亡開關", true);
         DropProp();
+        Destroy(gameObject, 0.5f);
     }
 
     /// <summary>

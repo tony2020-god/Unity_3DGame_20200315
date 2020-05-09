@@ -3,15 +3,15 @@ using UnityEngine.UI;
 using System.Collections;
 public class Dragon : MonoBehaviour
 {
+    public static float hp = 100;
+    public static float cd = 1.5f;
+
     [Header("移動速度"), Range(1, 1000)]
     public float speed = 300;
 
     [Header("虛擬搖桿")]
     public Joystick joy;
     //第一種寫法:需要欄位 public Transform tra;
-
-    [Header("攻擊冷卻時間")]
-    public float cd = 1.5f;
 
     [Header("火球")]
     public GameObject FireBall;
@@ -25,11 +25,13 @@ public class Dragon : MonoBehaviour
     [Header("攻擊力"), Range(1, 5000)]
     public float attack = 35;
 
-    [Header("血量"), Range(1, 1000)]
-    public float hp = 100;
+   
+    
 
     [Header("血條")]
     public Image hpBar;
+
+    private GameManager gm;
     /// <summary>
     /// 動畫控制器
     /// </summary>
@@ -123,6 +125,7 @@ public class Dragon : MonoBehaviour
     /// <param name="damage">接收收到的傷害值</param>
     public void Damage(float damage)
     {
+        if (gm.passLv) return;
         hp -= damage;
         hpBar.fillAmount = hp / 100;
         if (hp <= 0) Dead();
@@ -133,12 +136,13 @@ public class Dragon : MonoBehaviour
     private void Dead()
     {
         ani.SetBool("死亡開關", true);
+        gm.Lose();
     }
     private void Start()
     {
         ani = GetComponent<Animator>(); //取得元件<泛型>()
         hpBar.fillAmount = hp / 100; //每關血量更新
-
+        gm = FindObjectOfType<GameManager>();
     }
 
     private void Update()
